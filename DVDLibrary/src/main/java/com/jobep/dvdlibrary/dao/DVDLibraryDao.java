@@ -14,7 +14,7 @@ import java.util.List;
 public interface DVDLibraryDao {
     public void addDVD(DVD movie);
     public DVD removeDVD(String movie);
-    public void editDVD(DVD movie, int propertyToChange);
+    public int editDVD(DVD movie, int propertyToChange, String replaceValue);
     public List<DVD> getAllDVD();
     public DVD getDVD(String title);
     public String marshallDVD(String DVDAsString);

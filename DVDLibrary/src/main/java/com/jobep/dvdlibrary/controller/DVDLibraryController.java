@@ -58,7 +58,7 @@ public class DVDLibraryController{
     }
     
     public int getMenuSelect(){
-        return view.displayMenuOptions();
+        return view.displayMainMenuOptions();
     }
     public void createDVD(){
         DVD currDVD = view.createNewDVD();
@@ -72,6 +72,13 @@ public class DVDLibraryController{
         view.displayRemoveResult(deletedDVD);
     }
     public void editDVD(){
+        view.displayEditMenuBanner();
+        String editTitle = view.getMovieTitle();
+        DVD dvdToEdit = dao.getDVD(editTitle);
+        int editChoice = view.displayEditMenuOptions();
+        String replaceValue = view.getEditValue();
+        int result = dao.editDVD(dvdToEdit, editChoice, replaceValue);
+        view.displayEditResult(result);
         
     }
     public void displayDVDList(){
@@ -79,7 +86,10 @@ public class DVDLibraryController{
         view.displayAllDVDs(dvdList);
     }
     public void displayDVD(){
-        
+        view.displayListBanner();
+        String dvdToList = view.getMovieTitle();
+        DVD toList = dao.getDVD(dvdToList);
+        view.displayListDVD(toList);
     }
     public void invalidInput(){
         

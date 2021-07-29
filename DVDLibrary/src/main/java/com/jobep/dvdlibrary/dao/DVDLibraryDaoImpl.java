@@ -31,8 +31,33 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao{
     }
 
     @Override
-    public void editDVD(DVD movie, int propertyToChange) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int editDVD(DVD movie, int propertyToChange, String replaceValue) {
+        switch(propertyToChange){
+            case 1:
+                dvdLibrary.remove(movie.getTitle());
+                movie.setTitle(replaceValue);
+                dvdLibrary.put(replaceValue,movie);
+                
+                break;
+            case 2:
+                movie.setReleaseDate(replaceValue);
+                break;
+            case 3:
+                movie.setRating(replaceValue);
+                break;
+            case 4:
+                movie.setDirectorName(replaceValue);
+                break;
+            case 5:
+                movie.setStudio(replaceValue);
+                break;
+            case 6:
+                movie.setUserRating(replaceValue);
+                break;
+            default:
+                return -1;
+        }
+        return 1;
     }
 
     @Override
@@ -42,7 +67,7 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao{
 
     @Override
     public DVD getDVD(String title) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dvdLibrary.get(title);
     }
 
     @Override

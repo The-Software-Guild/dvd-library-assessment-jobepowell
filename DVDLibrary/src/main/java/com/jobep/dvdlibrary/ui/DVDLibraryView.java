@@ -19,7 +19,7 @@ public class DVDLibraryView {
     
     private UserIO io;
 
-    public int displayMenuOptions() {
+    public int displayMainMenuOptions() {
         io.print("Enter one of the following options:\n"
                 +"\t 1: Add DVD\n"
                 +"\t 2: Remove DVD\n"
@@ -29,7 +29,16 @@ public class DVDLibraryView {
                 +"\t 6: Exit\n");
         return io.readInt("Which option would you like? ");
     }
-    
+    public int displayEditMenuOptions(){
+        io.print("Enter one of the following options:\n"
+                +"\t 1: Edit title DVD\n"
+                +"\t 2: Edit release date DVD\n"
+                +"\t 3: Edit official MPAA rating\n"
+                +"\t 4: Edit Director name\n"
+                +"\t 5: Edit studio name\n"
+                +"\t 6: Edit review\n");
+        return io.readInt("Which option would you like? ");
+    }
     public DVD createNewDVD(){
         io.print("**** Adding New DVD ****");
         String dvdTitle       = io.readString("Please enter DVD title");
@@ -52,12 +61,21 @@ public class DVDLibraryView {
     public String getMovieTitle(){
         return io.readString("Please enter a movie title");
     }
-    
+    public String getEditValue(){
+        return io.readString("Please enter a new value");
+    }
     public void displayRemoveResult(DVD removed){
         if(removed != null)
             io.print("**** DVD successfully removed ****");
         else
             io.print("ERROR: DVD not found");
+        pressEnterToContinue();
+    }
+    public void displayEditResult(int result){
+        if(result == -1)
+            io.print("ERROR: Invalid Input");
+        else
+            io.print("**** DVD succesffuly edited ****");
         pressEnterToContinue();
     }
     public void displayAllDVDs(List<DVD> DVDs){
@@ -66,6 +84,19 @@ public class DVDLibraryView {
             io.print(currDVD.getTitle());
         }
         pressEnterToContinue();
+    }
+    public void displayListDVD(DVD movie){
+        if(movie != null)
+        {
+            String toPrint = String.format("%s (%s):\nRated %s\nDirected by %s\nFrom %s\nYour review: %s", movie.getTitle(),movie.getReleaseDate(),movie.getRating(),movie.getDirectorName(),movie.getStudio(),movie.getUserRating());
+            io.print(toPrint);
+        }
+        else
+            io.print("ERROR: DVD not found");
+        pressEnterToContinue();
+    }
+    public void displayListBanner(){
+        io.print("**** Listing DVD ****");
     }
     public void displayAddedSuccessfully(){
         io.print("**** DVD added successfully! ****");
@@ -76,6 +107,12 @@ public class DVDLibraryView {
     }
     public void displayRemoveBanner(){
         io.print("**** Removing DVD ****");
+    }
+    public void displayMainMenuBanner(){
+        io.print("**** Main Menu ****");
+    }
+    public void displayEditMenuBanner(){
+        io.print("**** Edit Menu ****");
     }
     
 }
