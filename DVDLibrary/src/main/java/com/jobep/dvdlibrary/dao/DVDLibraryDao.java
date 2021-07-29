@@ -10,14 +10,15 @@ package com.jobep.dvdlibrary.dao;
  * @author powel
  */
 import com.jobep.dvdlibrary.dto.DVD;
+import java.util.List;
 public interface DVDLibraryDao {
     public void addDVD(DVD movie);
     public void removeDVD(DVD movie);
-    public void editDVD();
-    public void getAllDVD();
-    public void getDVD();
-    public void marshallDVD();
-    public void unmarshallDVD();
+    public void editDVD(DVD movie, int propertyToChange);
+    public List<DVD> getAllDVD();
+    public DVD getDVD(String title);
+    public String marshallDVD(String DVDAsString);
+    public DVD unmarshallDVD(String currDVD);
     public void loadLibrary();
     public void writeLibrary();
 }

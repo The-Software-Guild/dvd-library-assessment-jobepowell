@@ -8,6 +8,15 @@
  *
  * @author powel
  */
+import com.jobep.dvdlibrary.controller.DVDLibraryController;
+import com.jobep.dvdlibrary.dao.*;
+import com.jobep.dvdlibrary.ui.*;
 public class App {
-    
+    public static void main(String[] args){
+        UserIO io = new UserIOConsoleImpl();
+        DVDLibraryView view = new DVDLibraryView(io);
+        DVDLibraryDao dao = new DVDLibraryDaoImpl();
+        DVDLibraryController controller = new DVDLibraryController(dao,view);
+        controller.run();
+    }
 }
