@@ -13,7 +13,7 @@ import com.jobep.dvdlibrary.dto.DVD;
 import java.util.List;
 public interface DVDLibraryDao {
     public void addDVD(DVD movie);
-    public void removeDVD(DVD movie);
+    public DVD removeDVD(String movie);
     public void editDVD(DVD movie, int propertyToChange);
     public List<DVD> getAllDVD();
     public DVD getDVD(String title);

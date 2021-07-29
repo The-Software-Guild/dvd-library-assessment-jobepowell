@@ -66,7 +66,10 @@ public class DVDLibraryController{
         view.displayAddedSuccessfully();
     }
     public void deleteDVD(){
-        
+        view.displayRemoveBanner();
+        String dvdToDelete = view.getMovieTitle();
+        DVD deletedDVD = dao.removeDVD(dvdToDelete);
+        view.displayRemoveResult(deletedDVD);
     }
     public void editDVD(){
         

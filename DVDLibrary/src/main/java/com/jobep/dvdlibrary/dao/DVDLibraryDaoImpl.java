@@ -25,8 +25,9 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao{
     }
 
     @Override
-    public void removeDVD(DVD movie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DVD removeDVD(String movie) {
+        DVD removedDVD = dvdLibrary.remove(movie);
+        return removedDVD;
     }
 
     @Override

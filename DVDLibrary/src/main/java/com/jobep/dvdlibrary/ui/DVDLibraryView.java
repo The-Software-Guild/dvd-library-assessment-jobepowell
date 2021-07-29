@@ -31,7 +31,7 @@ public class DVDLibraryView {
     }
     
     public DVD createNewDVD(){
-        io.print("**** Adding New DVD***");
+        io.print("**** Adding New DVD ****");
         String dvdTitle       = io.readString("Please enter DVD title");
         String dvdReleaseDate = io.readString("Please enter release date");
         String dvdMPAA        = io.readString("Please enter official MPAA rating");
@@ -49,12 +49,23 @@ public class DVDLibraryView {
         
         return currDVD;
     }
+    public String getMovieTitle(){
+        return io.readString("Please enter a movie title");
+    }
     
+    public void displayRemoveResult(DVD removed){
+        if(removed != null)
+            io.print("**** DVD successfully removed ****");
+        else
+            io.print("ERROR: DVD not found");
+        pressEnterToContinue();
+    }
     public void displayAllDVDs(List<DVD> DVDs){
         io.print("**** All Current DVDs ****");
         for(DVD currDVD : DVDs){
             io.print(currDVD.getTitle());
         }
+        pressEnterToContinue();
     }
     public void displayAddedSuccessfully(){
         io.print("**** DVD added successfully! ****");
@@ -62,6 +73,9 @@ public class DVDLibraryView {
     }
     public void pressEnterToContinue(){
         io.readString("Press Any Key to Continue.");
+    }
+    public void displayRemoveBanner(){
+        io.print("**** Removing DVD ****");
     }
     
 }
