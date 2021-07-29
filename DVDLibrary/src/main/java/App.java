@@ -12,7 +12,7 @@ import com.jobep.dvdlibrary.controller.DVDLibraryController;
 import com.jobep.dvdlibrary.dao.*;
 import com.jobep.dvdlibrary.ui.*;
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         UserIO io = new UserIOConsoleImpl();
         DVDLibraryView view = new DVDLibraryView(io);
         DVDLibraryDao dao = new DVDLibraryDaoImpl();

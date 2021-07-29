@@ -6,10 +6,18 @@
 package com.jobep.dvdlibrary.dao;
 
 import com.jobep.dvdlibrary.dto.DVD;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +26,9 @@ import java.util.Map;
 public class DVDLibraryDaoImpl implements DVDLibraryDao{
 
     private Map<String,DVD> dvdLibrary = new HashMap<String,DVD>();
+    public static String FILENAME = "DVD_DB";
+    public static String DELIMITER = "::";
+    
     @Override
     public void addDVD(DVD movie) {
         dvdLibrary.put(movie.getTitle(), movie);
@@ -71,23 +82,64 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao{
     }
 
     @Override
-    public String marshallDVD(String DVDAsString) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String marshallDVD(DVD aDVD) {
+        String toReturn = aDVD.getTitle() + DELIMITER;
+        toReturn+= aDVD.getReleaseDate() + DELIMITER;
+        toReturn+= aDVD.getRating() + DELIMITER;
+        toReturn+= aDVD.getDirectorName() + DELIMITER;
+        toReturn+= aDVD.getStudio() + DELIMITER;
+        toReturn+= aDVD.getUserRating();
+        return toReturn;
     }
 
     @Override
-    public DVD unmarshallDVD(String currDVD) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DVD unmarshallDVD(String dvdAsString) {
+        DVD tempDVD = new DVD();
+        String[] tokens = dvdAsString.split(DELIMITER);
+        tempDVD.setTitle(tokens[0]);
+        tempDVD.setReleaseDate(tokens[1]);
+        tempDVD.setRating(tokens[2]);
+        tempDVD.setDirectorName(tokens[3]);
+        tempDVD.setStudio(tokens[4]);
+        tempDVD.setUserRating(tokens[5]);
+        return tempDVD;
     }
 
     @Override
-    public void loadLibrary() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void loadLibrary() throws Exception{
+        Scanner scanner;
+        try {
+            scanner = new Scanner( new BufferedReader(new FileReader(FILENAME)));
+        } catch (FileNotFoundException e) {
+            throw new Exception("ERROR: Could not load DVD Library",e);
+        }
+        String currLine;
+        DVD currDVD;
+            
+        while(scanner.hasNextLine()){
+            currLine = scanner.nextLine();
+            currDVD  = unmarshallDVD(currLine);
+            dvdLibrary.put(currDVD.getTitle(),currDVD);
+        }
+        scanner.close();
     }
 
     @Override
-    public void writeLibrary() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void writeLibrary() throws Exception{
+        PrintWriter out;
+        try{
+            out = new PrintWriter( new FileWriter(FILENAME));
+        } catch(FileNotFoundException e){
+            throw new Exception("ERROR: Could not save data", e);
+        }
+        String DVDAsString;
+        List<DVD> DVDs = this.getAllDVD();
+        for(DVD currDVD : DVDs){
+            DVDAsString = marshallDVD(currDVD);
+            out.println(DVDAsString);
+            out.flush();
+        }
+        out.close();
     }
     
 }

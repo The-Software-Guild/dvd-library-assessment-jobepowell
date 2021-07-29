@@ -79,7 +79,6 @@ public class DVDLibraryView {
         pressEnterToContinue();
     }
     public void displayAllDVDs(List<DVD> DVDs){
-        io.print("**** All Current DVDs ****");
         for(DVD currDVD : DVDs){
             io.print(currDVD.getTitle());
         }
@@ -94,6 +93,12 @@ public class DVDLibraryView {
         else
             io.print("ERROR: DVD not found");
         pressEnterToContinue();
+    }
+    public void displayInvalidInput(){
+        io.print("ERROR: Invalid Input");
+    }
+    public void displayListAllBanner(){
+        io.print("**** All Current DVDs ****");
     }
     public void displayListBanner(){
         io.print("**** Listing DVD ****");
@@ -113,6 +118,9 @@ public class DVDLibraryView {
     }
     public void displayEditMenuBanner(){
         io.print("**** Edit Menu ****");
+    }
+    public void displayExitMessage(){
+        io.print("Exiting program. Goodbye!");
     }
     
 }

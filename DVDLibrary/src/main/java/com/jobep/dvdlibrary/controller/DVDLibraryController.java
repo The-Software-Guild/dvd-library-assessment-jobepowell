@@ -26,7 +26,8 @@ public class DVDLibraryController{
     private DVDLibraryDao dao;
     private DVDLibraryView view;
     
-    public void run(){
+    public void run() throws Exception{
+        retrieveLibrary();
         boolean keepGoing = true;
         int response;
         while(keepGoing){
@@ -55,8 +56,15 @@ public class DVDLibraryController{
                     
             }
         }
+        writeLibrary();
+        exitMessage();
     }
-    
+    public void retrieveLibrary() throws Exception{
+        dao.loadLibrary();
+    }
+    public void writeLibrary() throws Exception{
+        dao.writeLibrary();
+    }
     public int getMenuSelect(){
         return view.displayMainMenuOptions();
     }
@@ -82,6 +90,7 @@ public class DVDLibraryController{
         
     }
     public void displayDVDList(){
+        view.displayListAllBanner();
         List<DVD> dvdList = dao.getAllDVD();
         view.displayAllDVDs(dvdList);
     }
@@ -92,6 +101,9 @@ public class DVDLibraryController{
         view.displayListDVD(toList);
     }
     public void invalidInput(){
-        
+        view.displayInvalidInput();
+    }
+    public void exitMessage(){
+        view.displayExitMessage();
     }
 }

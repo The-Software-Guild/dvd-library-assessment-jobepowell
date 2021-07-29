@@ -17,8 +17,8 @@ public interface DVDLibraryDao {
     public int editDVD(DVD movie, int propertyToChange, String replaceValue);
     public List<DVD> getAllDVD();
     public DVD getDVD(String title);
-    public String marshallDVD(String DVDAsString);
-    public DVD unmarshallDVD(String currDVD);
-    public void loadLibrary();
-    public void writeLibrary();
+    public String marshallDVD(DVD aDVD);
+    public DVD unmarshallDVD(String dvdAsString);
+    public void loadLibrary() throws Exception;
+    public void writeLibrary() throws Exception;
 }
